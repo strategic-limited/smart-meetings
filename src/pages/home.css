@@ -1,0 +1,134 @@
+
+
+.sign-in-logo {
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem;
+}
+
+.tagLine {
+    text-align: center;
+}
+
+.form-group {
+ padding-left: 6rem;
+ justify-content: center;
+}
+
+
+
+.sign-in-detail {
+    /* background-image: url('../assets/landingbg.76d3a990.png');
+    background-repeat: no-repeat;
+    background-position: center top;
+    background-size: cover;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    z-index: 10; */
+}
+
+.sign-in-page .bg-white {
+    background: #121212 !important;
+    height: 100%;
+}
+
+.meeting-section {
+    height: 100vh;
+}
+
+.btn-primary {
+    background: #eb5054 !important;
+    border-color: #ea5054 !important;
+}
+
+.iq-social-media li a {
+    background: #eb5054 !important;
+    color: white !important;
+}
+
+a {
+    color: #ea5054 !important;
+}
+
+h1 {
+    color: #ffffff !important;
+    font-size: 2em;
+}
+
+.form-control {
+    color: #8c91b6 !important;
+}
+
+.container {
+    width: 100% !important;
+}
+
+@media (min-width: 1200px) {
+
+    .container,
+    .container-lg,
+    .container-md,
+    .container-sm,
+    .container-xl {
+        max-width: 100% !important;
+    }
+}
+
+.loginlogo {
+    margin-top: 5em;
+    margin-bottom: 5em;
+    width: 45%;
+}
+
+.footericon {
+    bottom: 0;
+    position: fixed;
+    width: 40%;
+    margin-bottom: -30px;
+    pointer-events: none;
+    text-align: center;
+}
+
+.imgoverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    opacity: 1;
+    z-index: 10;
+}
+
+label {
+    color: #ffffff;
+}
+
+.form-control {
+    color: #121212 !important;
+    background-color: white !important;
+}
+
+.item {
+    margin-top: 250px;
+}
+
+h4 {
+    font-size: 50px;
+    font-weight: 700;
+}
+
+.item p {
+    font-size: 15px;
+}
+
+.sign-in-from {
+    padding-left: 2em;
+    padding-right: 2em;
+    padding-top: 4em;
+}
