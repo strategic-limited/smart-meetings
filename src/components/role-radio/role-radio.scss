@@ -2,16 +2,24 @@
 label.MuiFormControlLabel-root.custom-radio {
   margin-left: 0;
   margin-right: 0;
+  color: #fff;
+  border: #fff;
 }
 
 .custom-radio {
   margin-left: 0;
   margin-right: 0;
+  color: white !important; 
+  border: #fff;
   .MuiRadio-colorPrimary.Mui-checked {
     color: #44A2FC;
+    border: #fff;
+
   }
   .Mui-checked ~ .MuiTypography-body1 {
-    color: #44A2FC;
+    border: #fff;
+  color: white;
+
   }
 }
 
@@ -21,4 +29,8 @@ label.MuiFormControlLabel-root.custom-radio {
   align-items: center;
   margin-left: 0px;
   margin-right: 0px;
+  border: #fff ;
+  color: white;
+
+
 }

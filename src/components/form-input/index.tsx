@@ -11,9 +11,16 @@ const userAgentInfo = parser.getResult()
 const useStyles = makeStyles ((theme: Theme) => ({
   formInput: {
     'ime-mode': 'disabled',
+    border : '1px solid #fff',
+    borderRadius: '2px',
+    background: 'white',
+    marginTop: '5px',
+    marginBottom: '0px',
+    padding: '1px',
     '&:after': {
-      borderBottom: '1px solid #44a2fc'
+      border: '1px solid #fff'
     }
+
   },
   required: {
     fontSize: '12px',
@@ -55,7 +62,7 @@ export const FormInput = (props: any) => {
   }
   return (
     <>
-      <InputLabel>{props.Label}</InputLabel>
+      {/* <InputLabel>{props.Label}</InputLabel> */}
       <Input className={classes.formInput} value={props.value}
         onCompositionStart={onCompositionStart}
         onCompositionEnd={onCompositionEnd}

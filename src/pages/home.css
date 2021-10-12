@@ -1,4 +1,21 @@
+.container {
+    width: 100% !important;
+   
+}
 
+.flex-container {
+width: 100%;
+height: 100%;
+display: flex;
+justify-content: space-between;
+}
+
+
+.sign-in-page  {
+    background: #121212 !important;
+    width: 40%;
+    height:100vh;
+} 
 
 .sign-in-logo {
     height: 70px;
@@ -10,89 +27,58 @@
 
 .tagLine {
     text-align: center;
+    color: white;
 }
 
 .form-group {
- padding-left: 6rem;
+ padding-left: 10rem;
  justify-content: center;
 }
 
-
-
-.sign-in-detail {
-    /* background-image: url('../assets/landingbg.76d3a990.png');
-    background-repeat: no-repeat;
-    background-position: center top;
-    background-size: cover;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    z-index: 10; */
+.form-div {
+    margin-top: 2rem;
 }
 
-.sign-in-page .bg-white {
-    background: #121212 !important;
-    height: 100%;
-}
-
-.meeting-section {
-    height: 100vh;
+.form-label {
+margin: 0px;
+padding: 0px;
+font-size: small;
 }
 
 .btn-primary {
     background: #eb5054 !important;
     border-color: #ea5054 !important;
+    border-radius: 22px !important;
+    width: 250px;
+    height: 40px;
+    text-transform: none;
 }
 
-.iq-social-media li a {
-    background: #eb5054 !important;
-    color: white !important;
-}
 
-a {
-    color: #ea5054 !important;
-}
-
-h1 {
-    color: #ffffff !important;
-    font-size: 2em;
-}
-
-.form-control {
-    color: #8c91b6 !important;
-}
-
-.container {
-    width: 100% !important;
-}
-
-@media (min-width: 1200px) {
-
-    .container,
-    .container-lg,
-    .container-md,
-    .container-sm,
-    .container-xl {
-        max-width: 100% !important;
-    }
-}
-
-.loginlogo {
-    margin-top: 5em;
-    margin-bottom: 5em;
-    width: 45%;
-}
 
 .footericon {
-    bottom: 0;
-    position: fixed;
-    width: 40%;
-    margin-bottom: -30px;
-    pointer-events: none;
     text-align: center;
+    justify-content: center;
 }
+
+
+.singIn-tag {
+    width: 60%;
+    height:100vh !important;
+    
+}
+
+.sign-in-detail {
+    background-image: url('../assets/landingbg.76d3a990.png');
+    background-repeat: no-repeat;
+    position: absolute; 
+    height:100vh !important;
+    width: 60%;
+    position: absolute; 
+    background-size: cover;
+    display: block;
+}
+
 
 .imgoverlay {
     position: absolute;
@@ -102,33 +88,32 @@ h1 {
     height: 100%;
     background-color: rgba(0, 0, 0, 0.7);
     opacity: 1;
-    z-index: 10;
+    z-index: 10; 
+} 
+
+
+ .lcontent {
+     margin-top: 300px;
+     color: #fff;
+     justify-content: center;
+     z-index: 99;
+     text-align: center;
+ }
+
+
+.lcontent h1 {
+    color: #fff;
+    font-size: 3em;
 }
 
-label {
-    color: #ffffff;
-}
+ .tagline-detail img {
+     height: 40px;
+     width: 40px;
+ }
 
-.form-control {
-    color: #121212 !important;
-    background-color: white !important;
-}
 
-.item {
-    margin-top: 250px;
-}
 
-h4 {
-    font-size: 50px;
-    font-weight: 700;
-}
 
-.item p {
-    font-size: 15px;
-}
 
-.sign-in-from {
-    padding-left: 2em;
-    padding-right: 2em;
-    padding-top: 4em;
-}
+
+

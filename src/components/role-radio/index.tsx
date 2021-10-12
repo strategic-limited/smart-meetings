@@ -10,7 +10,9 @@ const useStyles = makeStyles ((theme: Theme) => ({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center'
+    alignItems: 'center',
+    borderColor: '#fff',
+    borderStyle : '#fff 2px'
   },
   required: {
     fontSize: '12px',
@@ -29,7 +31,7 @@ export const RoleRadio: React.FC<any> = (props) => {
         className={"custom-radio align-left"}
         value="teacher"
         control={<Radio className={"custom-radio"} color="primary" />}
-        label={t("home.teacher")}
+        label={t("home.agency")}
         labelPlacement="end"
       />
       {
@@ -46,7 +48,7 @@ export const RoleRadio: React.FC<any> = (props) => {
         className={"custom-radio align-right"}
         value="student"
         control={<Radio className={"custom-radio"} color="primary" />}
-        label={t("home.student")}
+        label={t("home.client")}
         labelPlacement="end"
       />
       {props.requiredText ? <Typography className={classes.required}>{props.requiredText}</Typography> : null}

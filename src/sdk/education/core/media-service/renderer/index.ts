@@ -52,11 +52,11 @@ export abstract class UserRenderer implements IMediaRenderer {
     throw new Error("Method not implemented.");
   }
 
-  get isWeb (): boolean {
+  get isWeb(): boolean {
     return this.context.sdkWrapper instanceof AgoraWebRtcWrapper
   }
 
-  get isElectron (): boolean {
+  get isElectron(): boolean {
     return this.context.sdkWrapper instanceof AgoraElectronRTCWrapper
   }
 

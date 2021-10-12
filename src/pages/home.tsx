@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Theme, FormControl, Tooltip } from '@material-ui/core';
+import { Theme, FormControl, Tooltip, colors } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { CustomButton } from '@/components/custom-button';
 import { RoleRadio } from '@/components/role-radio';
@@ -25,6 +25,8 @@ const useStyles = makeStyles((theme: Theme) => ({
   formControl: {
     minWidth: '240px',
     maxWidth: '240px',
+    border: '1px',
+    color: 'white'
   }
 }));
 
@@ -117,17 +119,16 @@ function HomePage() {
   }
 
   return (
-    <div className='container'>
-      <section className="sign-in-page">
-        <div className="container bg-white">
-          <div className="row no-gutters">
+    <div className=''>
+      <section className="">
+         <div className="container">
+           <div className="flex-container ">
 
-
-            <div className="col-md-5 align-self-center meeting-section">
+            <div className="sign-in-page  ">
               <div className='sign-in-logo'>
                 <img alt='' className="loginlogo" src={logo} />
               </div>
-              <div className="">
+             
 
                 <h1 className="tagLine">Create your meeting Room</h1>
 
@@ -135,9 +136,10 @@ function HomePage() {
 
                   <div className=''>
                     <FormControl className={classes.formControl}>
+                      <label className='form-label ' htmlFor=""> Room Name</label>
                       <FormInput
                         alphabetical={true}
-                        Label={t('home.room_name')}
+
                         value={session.roomName}
                         onChange={
                           (val: string) => {
@@ -152,8 +154,9 @@ function HomePage() {
                     </FormControl>
                   </div>
 
-                  <div className=''>
+                  <div className='form-div'>
                     <FormControl className={classes.formControl}>
+                      <label className='form-label ' htmlFor="">Your Name</label>
                       <FormInput
                         alphabetical={true}
                         Label={t('home.nickname')}
@@ -169,8 +172,9 @@ function HomePage() {
                     </FormControl>
                   </div>
 
-                  <div className=''>
+                  <div className='form-div'>
                     <FormControl className={classes.formControl}>
+                      <label className='form-label ' htmlFor=""> Room Type</label>
                       <FormSelect
                         Label={t('home.room_type')}
                         value={session.roomType}
@@ -191,7 +195,7 @@ function HomePage() {
                   </div>
 
 
-                  <div className=''>
+                  <div className='form-div'>
                     <FormControl className={classes.formControl}>
                       <RoleRadio value={session.role} type={session.roomType} onChange={(evt: any) => {
                         setSessionInfo({
@@ -202,29 +206,29 @@ function HomePage() {
                     </FormControl>
                   </div>
 
-                  <div>
-                    <CustomButton name={t('home.room_join')} onClick={handleSubmit} />
+                  <div className='form-div'>
+                    <CustomButton className="btn-primary" name={t('home.room_join')} onClick={handleSubmit} />
                   </div>
-
-
                 </div>
 
 
-              </div>
+            
+
               <img alt='' src={footerIcon} className="footericon" />
             </div>
 
-            <div className="col-sm-6 text-center">
-              {/* <div className="sign-in-detail text-white">
+            <div className="singIn-tag">
+              <div className="sign-in-detail">
                 <div className="imgoverlay">
-                  <div className="item">
-                    <img src="{licon}" className="img-fluid mb-4" alt="logo" />
-                    <h4 className="mb-1 text-white"><span>Smart</span> Meetings</h4>
-                    <p></p>
+                  <div className="lcontent">
+                    <img src={licon} className="img-fluid mb-4" alt="logo" />
+                    <h1 className="mb-1 text-white"><span>Smart</span> Meetings</h1>
+                    <p>Personalized Video Meeting Rooms</p>
                   </div>
                 </div>
-              </div> */}
+              </div>
             </div>
+
 
           </div>
         </div>
