@@ -8,9 +8,6 @@
 | Small Classroom| [small-class.tsx](https://github.com/AgoraIO-Usecase/eEducation/blob/master/education_web/src/pages/classroom/small-class.tsx) | A teacher gives an online lesson to at most 16 students. |
 | Lecture Hall | [big-class.tsx](https://github.com/AgoraIO-Usecase/eEducation/blob/master/education_web/src/pages/classroom/big-class.tsx) | Thousands of students watch an online lecture together. |
 
-### Online preview
-
-[web demo](https://solutions.agora.io/education/web_v2/)
 
 ### Core SDKs
 - agora-rtc-sdk (agora rtc web sdk)
