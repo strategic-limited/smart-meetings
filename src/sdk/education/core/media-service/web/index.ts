@@ -4,8 +4,8 @@ import { EventEmitter } from "events";
 import { IAgoraRTCModule, CameraOption, MicrophoneOption, PrepareScreenShareParams, StartScreenShareParams } from '../interfaces';
 import { EduLogger } from '../../logger';
 
-import { Webcam, Player, Effect, MediaStreamCapture } from "../../../../../banuba/bin/BanubaSDK"
-import { BANUBA_CLIENT_TOKEN } from '../../../../../banuba/BanubaClientToken';
+// import { Webcam, Player, Effect, MediaStreamCapture } from "../../../../../banuba/bin/BanubaSDK"
+// import { BANUBA_CLIENT_TOKEN } from '../../../../../banuba/BanubaClientToken';
 
 interface IWebRTCWrapper extends IAgoraRTCModule {
 
@@ -163,11 +163,11 @@ export class AgoraWebRtcWrapper extends EventEmitter implements IWebRTCWrapper {
       // this.fire('user-left', user)
     })
     this.client.on('user-published', async (user, mediaType) => {
-      console.log("user-published ", user, mediaType)
+      // console.log("user-published ", user, mediaType)
       if (user.uid !== this.localScreenUid) {
         if (mediaType === 'audio') {
           if (!this.audioMuted) {
-            console.log("subscribeAudio, user", user)
+            // console.log("subscribeAudio, user", user)
             await this.client.subscribe(user, 'audio')
             // this.fire('user-published', {
             //   user,
@@ -590,15 +590,13 @@ export class AgoraWebRtcWrapper extends EventEmitter implements IWebRTCWrapper {
 
       // const player = await Player.create({ clientToken: BANUBA_CLIENT_TOKEN })
       // player.use(new Webcam())
-      // player.applyEffect(new Effect("../../../../../banuba/effects/Glasses.zip"))
+      // player.applyEffect(new Effect("Glasses.zip"))
       // player.play()
       // const stream = new MediaStreamCapture(player)
       // const video = stream.getVideoTrack()
-
-
-      await this.client.publish([this.cameraTrack])
       // await this.client.publish(video)
 
+      await this.client.publish([this.cameraTrack])
       EduLogger.info(`[agora-web] publish camera [${cameraId}] success`)
     }
   }
@@ -809,11 +807,12 @@ export class AgoraWebRtcWrapper extends EventEmitter implements IWebRTCWrapper {
 
       // const stream = new MediaStreamCapture(player)
       // const video = stream.getVideoTrack()
+      // await this.client.publish(video)
 
       const trackId = this.cameraTrack.getTrackId()
       if (this.publishedTrackIds.indexOf(trackId) < 0) {
         await this.client.publish([this.cameraTrack])
-        // await this.client.publish(video)
+
 
         this.publishedVideo = true
         this.publishedTrackIds.push(trackId)
@@ -933,6 +932,7 @@ export class AgoraWebRtcWrapper extends EventEmitter implements IWebRTCWrapper {
   }
 
   async openTestMicrophone(option?: MicrophoneOption): Promise<any> {
+    // eslint-disable-next-line no-throw-literal
     if (this.microphoneTestTrack) throw 'microphone test track already exists'
     if (!option) {
       this.microphoneTestTrack = await this.agoraWebSdk.createMicrophoneAudioTrack()
@@ -977,6 +977,7 @@ export class AgoraWebRtcWrapper extends EventEmitter implements IWebRTCWrapper {
       await this.microphoneTestTrack.setDevice(deviceId)
       await this.agoraWebSdk.checkAudioTrackIsActive(this.microphoneTestTrack as ILocalAudioTrack)
     } else {
+      // eslint-disable-next-line no-throw-literal
       throw 'no microphone test track found'
     }
   }

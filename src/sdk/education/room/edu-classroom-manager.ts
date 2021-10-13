@@ -77,7 +77,7 @@ export class EduClassroomManager extends EventEmitter {
   }
 
   private async prepareRoomJoin(args: any) {
-    console.log('[breakout] params ', args.userRole)
+    // console.log('[breakout] params ', args.userRole)
     let joinRoomData = await this.apiService.joinRoom({
       roomUuid: args.roomUuid,
       userRole: args.userRole,
