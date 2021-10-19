@@ -156,7 +156,7 @@ export class RTMWrapper extends EventEmitter {
     }
   }
 
-  public createObserverChannel(config: any): any[] {
+  public createObserverChannel(config: any): any[] { 
     const client = this.client
     return [client.createChannel(config.channelName), new EventEmitter()]
   }
@@ -166,7 +166,7 @@ export class RTMWrapper extends EventEmitter {
   public async join(channel: any, bus: any, config: any) {
     try {
       channel.on('ChannelMessage', (message: any, memberId: string, messagePros: any) => {
-        console.log("[rtm] ChannelMessage", message)
+        // console.log("[rtm] ChannelMessage", message)
         bus
         .emit('ChannelMessage', {
           channelName: config.channelName,

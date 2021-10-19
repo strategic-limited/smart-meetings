@@ -96,30 +96,34 @@ export class EduClassroomManager extends EventEmitter {
   }
 
   async join(params: any) {
-    EduLogger.debug(`join classroom ${this.roomUuid}`)
+    // EduLogger.debug(`join classroom ${this.roomUuid}`)
     const roomParams = {
       ...params,
       roomUuid: this.roomUuid,
       roomName: this.roomName,
     }
     let joinRoomData = await this.prepareRoomJoin(roomParams)
-    EduLogger.debug(`join classroom [prepareRoomJoin] ${this.roomUuid} success`)
+    // EduLogger.debug(`join classroom [prepareRoomJoin] ${this.roomUuid} success`)
     if (this.rtmWrapper) {
       const [channel, observer] = this.rtmWrapper.createObserverChannel({
         channelName: this.roomUuid,
       })
+     
       observer.on('ChannelMessage', (evt: any) => {
-        console.log("[rtm] ChannelMessage channelName", evt.channelName)
+        // console.log("[rtm] ChannelMessage channelName", evt.channelName)
         if (evt.channelName !== this.roomUuid) {
           return
         }
         try {
+         
           const res = MessageSerializer.readMessage(evt.message.text)
+       
+
           if (res === null) {
             return console.warn('[room] ChannelMessage is invalid', res)
           }
           const { sequence, cmd, version, data } = res
-          EduLogger.info('[EDU-STATE] Raw ChannelMessage', JSON.stringify(res))
+          // // EduLogger.info('[EDU-STATE] Raw ChannelMessage', JSON.stringify(res))
           if (version !== 1) {
             return EduLogger.warn('using old version')
           }
@@ -130,13 +134,13 @@ export class EduClassroomManager extends EventEmitter {
           //   return
           // }
 
-          const obj = {
-            seqId: sequence,
-            cmd,
-            data
-          }
+          // const obj = {
+          //   seqId: sequence,
+          //   cmd,
+          //   data
+          // }
 
-          console.log("appendBuffer in Raw Message ",obj)
+          // console.log("appendBuffer in Raw Message ",obj)
           
           this.data.appendBuffer({
             seqId: sequence,
@@ -161,8 +165,9 @@ export class EduClassroomManager extends EventEmitter {
       await this.data.syncFullSequence()
       this.data.BatchUpdateData()
       this._userService = new EduUserService(this)
-      EduLogger.debug(`join classroom ${this.roomUuid} success`)
+      // EduLogger.debug(`join classroom ${this.roomUuid} success`)
     }
+    
   }
 
   async leave() {

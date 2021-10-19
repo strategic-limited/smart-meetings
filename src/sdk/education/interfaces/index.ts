@@ -565,7 +565,7 @@ export class EduStreamData {
         ...stream
       }
     }
-    console.log("...stream", this._stream)
+    // console.log("...stream", this._stream)
     if (args.hasOwnProperty('updateTime')) {
       this._ts = updateTime
     }

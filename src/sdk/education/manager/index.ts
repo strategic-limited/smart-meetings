@@ -99,39 +99,42 @@ export class EduManager extends EventEmitter {
   }
 
   async login(userUuid: string) {
-    EduLogger.debug(`login userUuid: ${userUuid}`)
+    
+    // EduLogger.debug(`login userUuid: ${userUuid}`)
     try {
       let {userUuid: uuid, rtmToken} = await this.prepareLogin(userUuid)
-      EduLogger.debug(`prepareLogin login userUuid: ${userUuid} success`)
+      // EduLogger.debug(`prepareLogin login userUuid: ${userUuid} success`)
       const rtmWrapper = new RTMWrapper(this.config.agoraRtm)
+
       rtmWrapper.on('ConnectionStateChanged', async (evt: any) => {
-        console.log("[rtm] ConnectionStateChanged", evt)
+        // console.log("[rtm] ConnectionStateChanged", evt)
         if (rtmWrapper.prevConnectionState === 'RECONNECTING'
           && rtmWrapper.connectionState === 'CONNECTED') {
           for (let channel of Object.keys(this._dataBuffer)) {
             const classroom = this._dataBuffer[channel]
             if (classroom) {
-              console.log("[syncing] classroom", channel)
+              // console.log("[syncing] classroom", channel)
               await classroom.syncData(true, 300)
             }
           }
         }
         this.fire('ConnectionStateChanged', evt)
       })
+
       rtmWrapper.on('MessageFromPeer', (evt: any) => {
-        console.log("[rtm] MessageFromPeer", evt)
+        // console.log("[rtm] MessageFromPeer", evt)
         const res = MessageSerializer.readMessage(evt.message.text)
         if (res === null) {
           return console.warn('[room] edu-manager is invalid', res)
         }
         const { cmd, version, requestId, data } = res
-        EduLogger.info('Raw MessageFromPeer peer cmd', cmd)
+        // EduLogger.info('Raw MessageFromPeer peer cmd', cmd)
         if (version !== 1) {
           return EduLogger.warn('received old version', requestId, data, cmd)
         }
         switch(cmd) {
           case EduPeerMessageCmdType.peer: {
-            EduLogger.info(`自定义聊天消息, PeerMessage.${EduPeerMessageCmdType.peer}: `, data, requestId)
+            // EduLogger.info(`自定义聊天消息, PeerMessage.${EduPeerMessageCmdType.peer}: `, data, requestId)
             const textMessage: EduTextMessage = MessageSerializer.getEduTextMessage(data)
             this.emit('user-chat-message', {
               message: textMessage
@@ -140,9 +143,9 @@ export class EduManager extends EventEmitter {
           }
           // peer private custom message
           case EduPeerMessageCmdType.customMessage: {
-            EduLogger.info(`订阅自定义点对点消息，PeerMessage.${EduPeerMessageCmdType.customMessage}: `, data)
+            // EduLogger.info(`订阅自定义点对点消息，PeerMessage.${EduPeerMessageCmdType.customMessage}: `, data)
             const customMessage: EduCustomMessage = MessageSerializer.getEduCustomMessage(data)
-            EduLogger.info(`自定义点对点消息, user-message`, customMessage)
+            // EduLogger.info(`自定义点对点消息, user-message`, customMessage)
             this.emit('user-message', {
               message: customMessage
             })
@@ -151,14 +154,14 @@ export class EduManager extends EventEmitter {
         }
         // this.fire('MessageFromPeer', evt)
       })
-      EduLogger.debug(`rtm login userUuid: ${userUuid}, rtmToken: ${rtmToken} success`)
+      // EduLogger.debug(`rtm login userUuid: ${userUuid}, rtmToken: ${rtmToken} success`)
       await rtmWrapper.login({
         userUuid,
         rtmToken,
         appId: this.config.appId,
         uploadLog: true,
       })
-      EduLogger.debug(`login userUuid: ${userUuid} success`)
+      // EduLogger.debug(`login userUuid: ${userUuid} success`)
       this._rtmWrapper = rtmWrapper
     } catch (err) {
       throw err
@@ -175,9 +178,7 @@ export class EduManager extends EventEmitter {
   }
 
   createClassroom(params: ClassroomInitParams): EduClassroomManager {
-
     const roomUuid = params.roomUuid
-
     let classroomManager = new EduClassroomManager({
       roomUuid: roomUuid,
       roomName: params.roomName,

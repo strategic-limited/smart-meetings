@@ -570,6 +570,7 @@ export class AgoraEduApi {
       // autoPublish: params.autoPublish,
       token: ''
     })
+    // console.log(entryRoomData , 'Entry room data')
 
     this.roomUuid = params.roomUuid
 
@@ -581,6 +582,8 @@ export class AgoraEduApi {
     }
 
     const streams = get(entryRoomData, 'user.streams', [])
+
+  
 
     return {
       room: {

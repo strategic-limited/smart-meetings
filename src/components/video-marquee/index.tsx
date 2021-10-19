@@ -6,9 +6,9 @@ import { observer } from 'mobx-react';
 import { useRoomStore } from '@/hooks';
 
 
-// import { Webcam, Player, Effect, MediaStreamCapture, Dom } from "../../banuba/bin/BanubaSDK"
-// import { BANUBA_CLIENT_TOKEN } from "../../banuba/BanubaClientToken"
-// import AgoraRTC from "../../banuba/bin/AgoraRTC_N-4.7.1"
+import { Webcam, Player, Effect, MediaStreamCapture, Dom } from "../../banuba/bin/BanubaSDK"
+import { BANUBA_CLIENT_TOKEN } from "../../banuba/BanubaClientToken"
+
 
 const showScrollbar = () => {
   const $marquee = document.querySelector(".video-marquee .agora-video-view");
@@ -26,24 +26,6 @@ const showScrollbar = () => {
   }
   return false;
 }
-
-
-// const run = async () => {
-// const player = await Player.create({ clientToken: BANUBA_CLIENT_TOKEN })
-// player.use(new Webcam())
-// player.applyEffect(new Effect("octopus.zip"))
-// player.play()
-
-// const stream = new MediaStreamCapture(player)
-// const video = stream.getVideoTrack()
-
-
-// const client = AgoraRTC.createClient({ mode: "live",  codec: "h264" })
-// await client.join("135d3387506f46e780a236adde468f81", "Room1", null)
-// await client.publish(video)
-
-// }
-// run()
 
 
 export const VideoMarquee = observer(() => {
@@ -93,40 +75,45 @@ export const VideoMarquee = observer(() => {
   }, []);
 
 
-  // const run = async () => {
-  //   const player = await Player.create({ clientToken: BANUBA_CLIENT_TOKEN })
-  //   player.use(new Webcam())
-  //   player.applyEffect(new Effect("octopus.zip"))
-  //   player.play()
-
-  //   const stream = new MediaStreamCapture(player)
-  //   const video = stream.getVideoTrack()
 
 
-  //   const client = AgoraRTC.createClient({ mode: "live",  codec: "h264" })
-  //   await client.join("135d3387506f46e780a236adde468f81", "Room1", null)
-  //   await client.publish(video)
-  // }
-
+  // componentDidMount
   // useEffect(() => {
-  //   if (banubaRef.current) {
-  //     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-  //     async () => {
-  //       const player = await Player.create({ clientToken: BANUBA_CLIENT_TOKEN })
-  //       player.use(new Webcam())
-  //       player.applyEffect(new Effect("octopus.zip"))
-  //       player.play()
 
-  //       const stream = new MediaStreamCapture(player)
-  //       const video = stream.getVideoTrack()
-
-  //       const client = AgoraRTC.createClient({ mode: "live", codec: "h264" })
-  //       await client.join("135d3387506f46e780a236adde468f81", "Room1", null)
-  //       await client.publish(video)
-  //       Dom.render(player, banubaRef.current)
-  //     }
+  //   const webcam = new Webcam()
+  //   Player
+  //     .create(
+  //       {
+  //         clientToken: BANUBA_CLIENT_TOKEN,
+  //         locateFile: {
+  //           "BanubaSDK.wasm": "webar/BanubaSDK.wasm",
+  //           "BanubaSDK.data": "webar/BanubaSDK.data",
+  //         },
+  //       })
+  //     .then((player) => {
+  //       player.use(webcam)
+  //       player.applyEffect(new Effect("webar/effects/Afro.zip"))
+  //       Dom.render(player, "#webar")
+  //     })
+  //   // componentWillUnmount
+  //   return () => {
+  //     webcam.stop()
+  //     Dom.unmount("#webar")
   //   }
-  // }, []);
+
+    // async 
+    // const player = await Player.create({ clientToken: "xxx-xxx-xxx" })
+    // player.use(new Webcam())
+    // player.applyEffect(new Effect("octopus.zip"))
+    // player.play()
+
+    // const stream = new MediaStreamCapture(player)
+    // const video = stream.getVideoTrack()
+
+    // const client = AgoraRTC.createClient({ mode: "live", role: "host", codec: "h264" })
+    // await client.join("AGORA APP ID", "CHANNEL NAME", null)
+    // await client.publish(video)
+  // })
 
   return (
     <div className="video-marquee-container">
@@ -137,7 +124,7 @@ export const VideoMarquee = observer(() => {
           {...teacherStream}
         />
 
-        {/* <div ref={banubaRef}>
+        {/* <div id='webar'>
 
         </div> */}
       </div>

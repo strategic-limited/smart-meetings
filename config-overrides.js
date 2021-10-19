@@ -29,7 +29,7 @@ const isElectron = process.env.REACT_APP_RUNTIME_PLATFORM === 'electron'
 const {devDependencies} = require('./package.json');
 
 // TODO: You can customize your env
-// TODO: 这里你可以定制自己的env
+
 const isProd = process.env.ENV === 'production';
 
 const webWorkerConfig = () => config => {
@@ -46,7 +46,7 @@ const webWorkerConfig = () => config => {
 
 const sourceMap = () => config => {
   // TODO: Please use 'source-map' in production environment
-  // TODO: 建议上发布环境用 'source-map'
+  
   config.devtool = 'source-map'
   //config.devtool = isProd ? 'source-map' : 'cheap-module-eval-source-map'
   return config;

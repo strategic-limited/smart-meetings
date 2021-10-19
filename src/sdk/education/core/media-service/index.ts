@@ -389,6 +389,7 @@ export class MediaService extends EventEmitter implements IMediaService {
   }
 
   async openCamera(option?: CameraOption): Promise<any> {
+    console.log(option, 'This is option here')
     if (this.isWeb) {
       await this.sdkWrapper.openCamera(option)
       if (!this.web.cameraTrack) return
@@ -471,6 +472,7 @@ export class MediaService extends EventEmitter implements IMediaService {
       if (!this.web.cameraTestTrack) return
 
       if (!this.cameraTestRenderer) {
+  
         this.cameraTestRenderer = new LocalUserRenderer({
           context: this,
           uid: 0,
@@ -478,6 +480,7 @@ export class MediaService extends EventEmitter implements IMediaService {
           videoTrack: this.web.cameraTestTrack
         })
       } else {
+  
         this.cameraTestRenderer.videoTrack = this.web.cameraTestTrack
       }
     }

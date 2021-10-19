@@ -105,10 +105,8 @@ function HomePage() {
       ...session,
       roomType: roomTypes[session.roomType].value
     })
-    console.log(session)
-    // console.log(appStore)
+    
     const path = roomTypes[session.roomType].path
-    // console.log(path)
 
     if (session.role === 'assistant') {
       history.push(`/breakout-class/assistant/courses`)

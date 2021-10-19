@@ -195,7 +195,6 @@ export class RoomApi {
       method: 'POST',
       data: data
     })
-    console.log(res, 'this is at room api service')
     return res
   }
 

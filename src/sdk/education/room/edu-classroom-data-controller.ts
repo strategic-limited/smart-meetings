@@ -1065,6 +1065,7 @@ export class EduClassroomDataController {
   }
 
   upsertLocalStream(type: string, data: EduStreamData, seqId?: any) {
+    console.log('This fire up here')
     EduLogger.info(`[EDU-STATE] upsertLocalStream: [${seqId}] type: ${type}, data: ${JSON.stringify(data)}`)
     if (type === 'main') {
       const mainStream = this._cachedLocalStreams['main'] as EduStreamData

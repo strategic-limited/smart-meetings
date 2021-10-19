@@ -4,8 +4,8 @@ import { EventEmitter } from "events";
 import { IAgoraRTCModule, CameraOption, MicrophoneOption, PrepareScreenShareParams, StartScreenShareParams } from '../interfaces';
 import { EduLogger } from '../../logger';
 
-// import { Webcam, Player, Effect, MediaStreamCapture } from "../../../../../banuba/bin/BanubaSDK"
-// import { BANUBA_CLIENT_TOKEN } from '../../../../../banuba/BanubaClientToken';
+import { Webcam, Player, Effect, MediaStreamCapture } from "../../../../../banuba/bin/BanubaSDK"
+import { BANUBA_CLIENT_TOKEN } from '../../../../../banuba/BanubaClientToken';
 
 interface IWebRTCWrapper extends IAgoraRTCModule {
 
@@ -566,6 +566,7 @@ export class AgoraWebRtcWrapper extends EventEmitter implements IWebRTCWrapper {
   async openCamera(option?: CameraOption): Promise<any> {
     EduLogger.info('[agora-web] invoke web#openCamera')
     if (!option) {
+    EduLogger.info('Option here also openCamera')
       this.cameraTrack = await this.agoraWebSdk.createCameraVideoTrack()
       this.cameraTrack.on('track-ended', () => {
         this.cameraTrack && this.closeMediaTrack(this.cameraTrack)
@@ -588,15 +589,25 @@ export class AgoraWebRtcWrapper extends EventEmitter implements IWebRTCWrapper {
 
       const cameraId = this.cameraTrack.getTrackId()
 
-      // const player = await Player.create({ clientToken: BANUBA_CLIENT_TOKEN })
-      // player.use(new Webcam())
-      // player.applyEffect(new Effect("Glasses.zip"))
-      // player.play()
-      // const stream = new MediaStreamCapture(player)
-      // const video = stream.getVideoTrack()
-      // await this.client.publish(video)
+      const player = await Player.create(
+        {
+          clientToken: BANUBA_CLIENT_TOKEN,
+          locateFile: {
+            "BanubaSDK.wasm": "webar/BanubaSDK.wasm",
+            "BanubaSDK.data": "webar/BanubaSDK.data",
+          },
+        }
+      )
+      console.log(player, 'banuba player')
+      player.use(new Webcam())
+      player.applyEffect(new Effect("webar/effects/Afro.zip"))
+      player.play()
+      const stream = new MediaStreamCapture(player)
+      const video = stream.getVideoTrack()
 
       await this.client.publish([this.cameraTrack])
+      // await this.client.publish([video])
+ 
       EduLogger.info(`[agora-web] publish camera [${cameraId}] success`)
     }
   }
@@ -799,20 +810,29 @@ export class AgoraWebRtcWrapper extends EventEmitter implements IWebRTCWrapper {
 
   async publish(): Promise<any> {
     if (this.cameraTrack) {
-
-      // const player = await Player.create({ clientToken: "xxx-xxx-xxx" })
-      // player.use(new Webcam())
-      // player.applyEffect(new Effect("../../../../../banuba/effects/Afro.zip"))
-      // player.play()
-
-      // const stream = new MediaStreamCapture(player)
-      // const video = stream.getVideoTrack()
+      console.log(this.cameraTrack, 'This is here now')
+      const player = await Player.create(
+        {
+          clientToken: BANUBA_CLIENT_TOKEN,
+          locateFile: {
+            "BanubaSDK.wasm": "webar/BanubaSDK.wasm",
+            "BanubaSDK.data": "webar/BanubaSDK.data",
+          },
+        }
+      )
+      console.log(player, 'banuba player')
+      player.use(new Webcam())
+      player.applyEffect(new Effect("webar/effects/Afro.zip"))
+      player.play()
+      
+      const stream = new MediaStreamCapture(player)
+      const video = stream.getVideoTrack()
       // await this.client.publish(video)
 
       const trackId = this.cameraTrack.getTrackId()
       if (this.publishedTrackIds.indexOf(trackId) < 0) {
-        await this.client.publish([this.cameraTrack])
-
+        // await this.client.publish([this.cameraTrack])
+        await this.client.publish(video)
 
         this.publishedVideo = true
         this.publishedTrackIds.push(trackId)
@@ -826,6 +846,7 @@ export class AgoraWebRtcWrapper extends EventEmitter implements IWebRTCWrapper {
         this.publishedTrackIds.push(trackId)
       }
     }
+
   }
 
   private async unpublishTrack(track: ILocalTrack) {

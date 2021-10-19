@@ -69,7 +69,7 @@ export const Toast = observer(() => {
           key={`${idx}${message}${Date.now()}`}
           closeToast={() => {
             uiStore.removeToast(message)
-            console.log("close Toast", message)
+            // console.log("close Toast", message)
           }}
         />
       )}

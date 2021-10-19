@@ -26,7 +26,6 @@ import { AgoraElectronRTCWrapper } from '@/sdk/education/core/media-service/elec
 // AgoraRTC.setLogLevel(4)
 
 const APP_ID: string = process.env.REACT_APP_AGORA_APP_ID as string;
-console.log("APP_ID ", APP_ID)
 const CUSTOMER_ID: string = process.env.REACT_APP_AGORA_CUSTOMER_ID as string;
 const CUSTOMER_CERTIFICATE: string = process.env.REACT_APP_AGORA_CUSTOMER_CERTIFICATE as string;
 const platform = process.env.REACT_APP_RUNTIME_PLATFORM as string;

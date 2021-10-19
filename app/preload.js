@@ -35,9 +35,9 @@ window.ipc.on('appPath', (event, args) => {
   window.logPath = logPath;
   window.videoSourceLogPath = args[1];
 
-  console.log('window. dstPath', window.dstPath)
-  console.log('window. logPath', window.logPath)
-  console.log('window. videoSourceLogPath', window.videoSourceLogPath)
+  // console.log('window. dstPath', window.dstPath)
+  // console.log('window. logPath', window.logPath)
+  // console.log('window. videoSourceLogPath', window.videoSourceLogPath)
 })
 
 const doGzip = async () => {
@@ -53,10 +53,10 @@ const doGzip = async () => {
     }
     zip.writeZip(window.dstPath)
     let res = await promisify(fs.readFile)(window.dstPath)
-    console.log("doGzip ", res)
+    // console.log("doGzip ", res)
     return res    
   } catch (err) {
-    console.error('[doGzip] upload failured')
+    // console.error('[doGzip] upload failured')
     throw err
   }
 }

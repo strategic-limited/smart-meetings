@@ -210,9 +210,11 @@ export const Nav = observer((props: any) => {
             <>
             <Tooltip title={t("icon.setting")} placement="bottom">
               <span>
-                <CustomIcon className="icon-setting" onClick={(evt: any) => {
-                  uiStore.showSetting()
-                }}/>
+                {/* <CustomIcon className="icon-setting" onClick={(evt: any) => {
+                   uiStore.showSetting()
+                }}/> */}
+                 <CustomIcon className="icon-setting" /> 
+
               </span>
             </Tooltip>
             </> : null
