@@ -6,8 +6,6 @@ import { observer } from 'mobx-react';
 import { useRoomStore } from '@/hooks';
 
 
-import { Webcam, Player, Effect, MediaStreamCapture, Dom } from "../../banuba/bin/BanubaSDK"
-import { BANUBA_CLIENT_TOKEN } from "../../banuba/BanubaClientToken"
 
 
 const showScrollbar = () => {
@@ -32,6 +30,8 @@ export const VideoMarquee = observer(() => {
 
   const { teacherStream, studentStreams } = useRoomStore()
 
+  const [userEffect , setUserEffect] = useState(null)
+
   const marqueeEl = useRef(null);
 
   const scrollLeft = (current: any, offset: number) => {
@@ -47,9 +47,6 @@ export const VideoMarquee = observer(() => {
   }
 
   const ref = useRef<boolean>(false);
-
-  const banubaRef = useRef(null)
-
 
 
   useEffect(() => {
@@ -75,58 +72,15 @@ export const VideoMarquee = observer(() => {
   }, []);
 
 
-
-
-  // componentDidMount
-  // useEffect(() => {
-
-  //   const webcam = new Webcam()
-  //   Player
-  //     .create(
-  //       {
-  //         clientToken: BANUBA_CLIENT_TOKEN,
-  //         locateFile: {
-  //           "BanubaSDK.wasm": "webar/BanubaSDK.wasm",
-  //           "BanubaSDK.data": "webar/BanubaSDK.data",
-  //         },
-  //       })
-  //     .then((player) => {
-  //       player.use(webcam)
-  //       player.applyEffect(new Effect("webar/effects/Afro.zip"))
-  //       Dom.render(player, "#webar")
-  //     })
-  //   // componentWillUnmount
-  //   return () => {
-  //     webcam.stop()
-  //     Dom.unmount("#webar")
-  //   }
-
-    // async 
-    // const player = await Player.create({ clientToken: "xxx-xxx-xxx" })
-    // player.use(new Webcam())
-    // player.applyEffect(new Effect("octopus.zip"))
-    // player.play()
-
-    // const stream = new MediaStreamCapture(player)
-    // const video = stream.getVideoTrack()
-
-    // const client = AgoraRTC.createClient({ mode: "live", role: "host", codec: "h264" })
-    // await client.join("AGORA APP ID", "CHANNEL NAME", null)
-    // await client.publish(video)
-  // })
-
   return (
     <div className="video-marquee-container">
+    
       <div className="main">
         <VideoPlayer
           showClose={false}
           role="teacher"
           {...teacherStream}
         />
-
-        {/* <div id='webar'>
-
-        </div> */}
       </div>
 
       <div className="video-marquee-mask">

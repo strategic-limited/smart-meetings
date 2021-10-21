@@ -21,9 +21,6 @@ import { ChatMessage } from '@/utils/types';
 import { t } from '@/i18n';
 import { DialogType } from '@/components/dialog';
 
-// Banuba section
-// import { Webcam, Player, Effect, Dom } from "../../banuba/bin/BanubaSDK"
-// console.log(Player, 'This is player')
 
 
 const delay = 2000
@@ -393,6 +390,7 @@ export class RoomStore extends SimpleInterval {
       await this.mediaService.openCamera({ deviceId })
       
       this._cameraRenderer = this.mediaService.cameraRenderer
+      
       this.cameraLabel = this.mediaService.getCameraLabel()
       this._cameraId = this.cameraId
       this.unLockCamera()
@@ -1169,6 +1167,8 @@ export class RoomStore extends SimpleInterval {
       let canPublish = this.roomInfo.userRole === 'teacher' || localStreamData && !!(+localStreamData.state) ||
         (this.roomInfo.userRole === 'student' && +this.roomInfo.roomType !== 2)
 
+      
+
       if (canPublish) {
 
         const localStreamData = roomManager.data.localStreamData
@@ -1207,6 +1207,7 @@ export class RoomStore extends SimpleInterval {
           console.warn(err)
         }
       }
+
 
       await this.appStore.boardStore.init()
       const roomProperties = roomManager.getClassroomInfo().roomProperties

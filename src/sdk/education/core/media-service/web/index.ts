@@ -19,8 +19,6 @@ interface IWebRTCWrapper extends IAgoraRTCModule {
   client: IAgoraRTCClient
 }
 
-
-
 interface RtcWrapperInitOption {
   appId: string
   uploadLog: boolean
@@ -49,7 +47,8 @@ export class AgoraWebRtcWrapper extends EventEmitter implements IWebRTCWrapper {
   clientConfig?: any;
 
   joined: boolean
-  cameraTrack?: ICameraVideoTrack
+  // cameraTrack?: ICameraVideoTrack
+  cameraTrack?: any;
   microphoneTrack?: IMicrophoneAudioTrack
 
   cameraTestTrack?: ICameraVideoTrack
@@ -564,15 +563,15 @@ export class AgoraWebRtcWrapper extends EventEmitter implements IWebRTCWrapper {
   }
 
   async openCamera(option?: CameraOption): Promise<any> {
-    EduLogger.info('[agora-web] invoke web#openCamera')
+    // EduLogger.info('[agora-web] invoke web#openCamera')
     if (!option) {
-    EduLogger.info('Option here also openCamera')
+    // EduLogger.info('Option here also openCamera')
       this.cameraTrack = await this.agoraWebSdk.createCameraVideoTrack()
       this.cameraTrack.on('track-ended', () => {
         this.cameraTrack && this.closeMediaTrack(this.cameraTrack)
         this.fire('track-ended', { video: true })
       })
-      EduLogger.info(`[agora-web] create default camera [${this.cameraTrack.getTrackId()}] video track success`)
+      // EduLogger.info(`[agora-web] create default camera [${this.cameraTrack.getTrackId()}] video track success`)
     } else {
       this.cameraTrack = await this.agoraWebSdk.createCameraVideoTrack({
         cameraId: option.deviceId,
@@ -586,9 +585,7 @@ export class AgoraWebRtcWrapper extends EventEmitter implements IWebRTCWrapper {
       EduLogger.info(`[agora-web] create camera [${cameraId}], option: ${JSON.stringify(option)} success`)
     }
     if (this.joined && this.publishedVideo) {
-
-      const cameraId = this.cameraTrack.getTrackId()
-
+      // Banuba SDK inte
       const player = await Player.create(
         {
           clientToken: BANUBA_CLIENT_TOKEN,
@@ -598,17 +595,14 @@ export class AgoraWebRtcWrapper extends EventEmitter implements IWebRTCWrapper {
           },
         }
       )
-      console.log(player, 'banuba player')
       player.use(new Webcam())
       player.applyEffect(new Effect("webar/effects/Afro.zip"))
       player.play()
       const stream = new MediaStreamCapture(player)
       const video = stream.getVideoTrack()
-
+      this.cameraTrack._mediaStreamTrack =  video
       await this.client.publish([this.cameraTrack])
-      // await this.client.publish([video])
- 
-      EduLogger.info(`[agora-web] publish camera [${cameraId}] success`)
+     
     }
   }
 
@@ -810,29 +804,29 @@ export class AgoraWebRtcWrapper extends EventEmitter implements IWebRTCWrapper {
 
   async publish(): Promise<any> {
     if (this.cameraTrack) {
-      console.log(this.cameraTrack, 'This is here now')
-      const player = await Player.create(
-        {
-          clientToken: BANUBA_CLIENT_TOKEN,
-          locateFile: {
-            "BanubaSDK.wasm": "webar/BanubaSDK.wasm",
-            "BanubaSDK.data": "webar/BanubaSDK.data",
-          },
-        }
-      )
-      console.log(player, 'banuba player')
-      player.use(new Webcam())
-      player.applyEffect(new Effect("webar/effects/Afro.zip"))
-      player.play()
+      console.log(this.cameraTrack, 'This is here now wia we publish')
+      // const player = await Player.create(
+      //   {
+      //     clientToken: BANUBA_CLIENT_TOKEN,
+      //     locateFile: {
+      //       "BanubaSDK.wasm": "webar/BanubaSDK.wasm",
+      //       "BanubaSDK.data": "webar/BanubaSDK.data",
+      //     },
+      //   }
+      // )
+      // console.log(player, 'banuba player')
+      // player.use(new Webcam())
+      // player.applyEffect(new Effect("webar/effects/Afro.zip"))
+      // player.play()
       
-      const stream = new MediaStreamCapture(player)
-      const video = stream.getVideoTrack()
+      // const stream = new MediaStreamCapture(player)
+      // const video = stream.getVideoTrack()
       // await this.client.publish(video)
 
       const trackId = this.cameraTrack.getTrackId()
       if (this.publishedTrackIds.indexOf(trackId) < 0) {
-        // await this.client.publish([this.cameraTrack])
-        await this.client.publish(video)
+        await this.client.publish([this.cameraTrack])
+        // await this.client.publish(video)
 
         this.publishedVideo = true
         this.publishedTrackIds.push(trackId)

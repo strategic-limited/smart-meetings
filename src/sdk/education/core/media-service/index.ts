@@ -100,6 +100,7 @@ export class MediaService extends EventEmitter implements IMediaService {
     })
     this.sdkWrapper.on('user-published', (evt: any) => {
       const user = evt.user
+      console.log(user , "This is users here")
       EduLogger.debug("sdkwrapper user-published", user)
       const userIndex = this.remoteUsersRenderer.findIndex((it: any) => it.uid === user.uid)
       if (userIndex === -1) {
@@ -389,11 +390,9 @@ export class MediaService extends EventEmitter implements IMediaService {
   }
 
   async openCamera(option?: CameraOption): Promise<any> {
-    console.log(option, 'This is option here')
     if (this.isWeb) {
       await this.sdkWrapper.openCamera(option)
       if (!this.web.cameraTrack) return
-
       if (!this.cameraRenderer) {
         this.cameraRenderer = new LocalUserRenderer({
           context: this,

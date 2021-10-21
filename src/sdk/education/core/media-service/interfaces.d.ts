@@ -21,22 +21,22 @@ declare interface RTCProviderInitParams {
 }
 
 declare interface PrepareScreenShareParams {
-  // 仅适用于Electron平台 目前只支持ElectronSDK
+  // Electron ElectronSDK
   dom?: HTMLElement
-  // 仅适用于web平台 详细参考agora-web-sdk-ng的文档
+  // web agora-web-sdk-ng
   shareAudio?: 'enable' | 'auto' | 'disable'
   encoderConfig?: any
 }
 
 declare interface StartScreenShareParams {
-  // Electron屏幕共享参数
+  // Electron
   windowId?: number
   config?: {
     profile: number
     rect: any
     param: any
   }
-  // Web屏幕共享参数
+  // Web
   params: {
     uid: any
     channel: string
