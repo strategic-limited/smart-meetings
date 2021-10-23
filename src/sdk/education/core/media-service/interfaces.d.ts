@@ -49,6 +49,7 @@ declare interface StartScreenShareParams {
 declare interface CameraOption {
   deviceId: string
   encoderConfig?: any
+  effect?: any
 }
 
 declare interface MicrophoneOption {

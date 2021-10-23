@@ -606,6 +606,59 @@ export class AgoraWebRtcWrapper extends EventEmitter implements IWebRTCWrapper {
     }
   }
 
+  async applyEffect(option?: CameraOption): Promise<any> {
+    if (!option) {
+      this.cameraTrack = await this.agoraWebSdk.createCameraVideoTrack()
+      this.cameraTrack.on('track-ended', () => {
+        this.cameraTrack && this.closeMediaTrack(this.cameraTrack)
+        this.fire('track-ended', { video: true })
+      })
+     
+    } else {
+      
+      await this.unpublishTrack(this.cameraTrack)
+      // if (this.cameraTrack) {
+      //   const trackId = this.cameraTestTrack?.getTrackId()
+      //   this.cameraTrack.isPlaying && this.cameraTrack.stop()
+      //   this.cameraTrack.close()
+      //   EduLogger.info(`[agora-web] close camera [${trackId}] success`)
+      //   this.cameraTrack = undefined
+      // }
+    }
+     this.cameraTrack = await this.agoraWebSdk.createCameraVideoTrack({
+        cameraId: option?.deviceId,
+        encoderConfig: option?.encoderConfig
+      })
+    // const cameraId = this.cameraTrack.getTrackId()
+    // this.cameraTrack.on('track-ended', () => {
+    //   this.cameraTrack && this.closeMediaTrack(this.cameraTrack)
+    //   this.fire('track-ended', { video: true })
+    // })
+    // EduLogger.info(`[agora-web] create camera [${cameraId}], option: ${JSON.stringify(option)} success`)
+      // Banuba SDK  integration
+      const banubaEffect = option?.effect
+      console.log(banubaEffect, 'this is the effect selected')
+      const player = await Player.create(
+        {
+          clientToken: BANUBA_CLIENT_TOKEN,
+          locateFile: {
+            "BanubaSDK.wasm": "webar/BanubaSDK.wasm",
+            "BanubaSDK.data": "webar/BanubaSDK.data",
+          },
+        }
+      )
+      player.use(new Webcam())
+      player.applyEffect(new Effect(`webar/effects/${banubaEffect}.zip`))
+      player.play()
+      const stream = new MediaStreamCapture(player)
+      const video = stream.getVideoTrack()
+      this.cameraTrack._mediaStreamTrack =  video
+      await this.client.publish([this.cameraTrack])
+     
+
+  }
+   
+
   async closeCamera() {
     EduLogger.info('[agora-web] invoke close#openCamera')
     if (this.cameraTrack) {

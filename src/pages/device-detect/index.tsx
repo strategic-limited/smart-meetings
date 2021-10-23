@@ -1,15 +1,15 @@
 import React from 'react';
-import {VideoPage} from './video';
-import {AudioPage} from './audio';
-import {SpeakerPage} from './speaker';
+import { VideoPage } from './video';
+import { AudioPage } from './audio';
+import { SpeakerPage } from './speaker';
 import './index.scss';
 import { TestReportPage } from './test-report';
 import { observer } from 'mobx-react';
 import { useUIStore, useDeviceStore } from '@/hooks';
 import { Tooltip } from '@material-ui/core';
-import {CustomIcon} from '@/components/icon';
+import { CustomIcon } from '@/components/icon';
 import { t } from '@/i18n';
-import {useHistory, useLocation} from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
 interface DeviceMenuProps {
   headerTitle: string
@@ -27,7 +27,7 @@ export const DeviceMenu: React.FC<any> = (props: DeviceMenuProps) => {
   const onClick = (name: string) => {
     props.onClick(name)
   }
-  
+
   return (
     <div className="device-menu">
       <div className="header">
@@ -35,32 +35,32 @@ export const DeviceMenu: React.FC<any> = (props: DeviceMenuProps) => {
       </div>
       {
         props.active === 'test' ? null :
-        <>
-          <a onClick={() => {
-            onClick('video')
-          }} className={`item link-item ${props.active === 'video' ? 'active' : ''}`}>
-            <div className="camera-icon"></div>
-            <div className="item-name">
-              {props.cameraTitle}
-            </div>
-          </a>
-          <a onClick={() => {
-            onClick('audio')
-          }} className={`item link-item ${props.active === 'audio' ? 'active' : ''}`}>
-            <div className="microphone-icon"></div>
-            <div className="item-name">
-              {props.microphoneTitle}
-            </div>
-          </a>
-          <a onClick={() => {
-            onClick('speaker')
-          }} className={`item link-item ${props.active === 'speaker' ? 'active' : ''}`}>
-            <div className="speaker-icon"></div>
-            <div className="item-name">
-              {props.speakerTitle}
-            </div>
-          </a>
-        </>
+          <>
+            <a onClick={() => {
+              onClick('video')
+            }} className={`item link-item ${props.active === 'video' ? 'active' : ''}`}>
+              <div className="camera-icon"></div>
+              <div className="item-name">
+                {props.cameraTitle}
+              </div>
+            </a>
+            <a onClick={() => {
+              onClick('audio')
+            }} className={`item link-item ${props.active === 'audio' ? 'active' : ''}`}>
+              <div className="microphone-icon"></div>
+              <div className="item-name">
+                {props.microphoneTitle}
+              </div>
+            </a>
+            <a onClick={() => {
+              onClick('speaker')
+            }} className={`item link-item ${props.active === 'speaker' ? 'active' : ''}`}>
+              <div className="speaker-icon"></div>
+              <div className="item-name">
+                {props.speakerTitle}
+              </div>
+            </a>
+          </>
       }
     </div>
   )
@@ -83,28 +83,28 @@ export const DeviceViews: React.FC<DeviceViewsProps> = (props) => {
   return (
     <>
       <div className="device-view">
-        {uiStore.isWeb && 
-        <div className="web-menu-position-top">
-          <CustomIcon className="icon-close" onClick={() => {
-            if (location.pathname === '/setting') {
-              history.push('/')
-            } else {
-              deviceStore.hideSetting()
-            }
-          }}/>
-        </div>
+        {uiStore.isWeb &&
+          <div className="web-menu-position-top">
+            <CustomIcon className="icon-close" onClick={() => {
+              if (location.pathname === '/setting') {
+                history.push('/')
+              } else {
+                deviceStore.hideSetting()
+              }
+            }} />
+          </div>
         }
         {uiStore.isElectron && <div className="electron-menu-position-top">
           <>
-              <div className="icon-container">
-                <CustomIcon className="icon-minimum" onClick={() => {
-                  uiStore.windowMinimum()
-                }}/>
-                <CustomIcon className="icon-close" onClick={() => {
-                  history.push('/')
-                  // uiStore.windowClose()
-                }}/>
-              </div>
+            <div className="icon-container">
+              <CustomIcon className="icon-minimum" onClick={() => {
+                uiStore.windowMinimum()
+              }} />
+              <CustomIcon className="icon-close" onClick={() => {
+                history.push('/')
+                // uiStore.windowClose()
+              }} />
+            </div>
           </>
         </div>
         }
@@ -119,7 +119,7 @@ export const DeviceViews: React.FC<DeviceViewsProps> = (props) => {
 
 export const DeviceDetect = (props: any) => {
   return (
-    <div className={`${props.className ? props.className :''}`}>
+    <div className={`${props.className ? props.className : ''}`}>
       <div className={`device-container`}>
         <DeviceMenu
           active={props.activeDeviceItem}
@@ -156,7 +156,7 @@ export const DeviceDetectController = observer(() => {
   const deviceStore = useDeviceStore()
 
   return (
-    deviceStore.settingVisible ? 
+    deviceStore.settingVisible ?
       <DeviceDetect
         onClick={(name: string) => {
           deviceStore.setActiveItem(name)

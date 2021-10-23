@@ -401,6 +401,23 @@ export class RoomStore extends SimpleInterval {
     }
   }
 
+
+  @action
+  async applyEffect(effect?: any) {
+    try {
+      const deviceId = this._cameraId
+      await this.mediaService.applyEffect({ deviceId , effect})
+      this._cameraRenderer = this.mediaService.cameraRenderer
+      this.cameraLabel = this.mediaService.getCameraLabel()
+      this._cameraId = this.cameraId
+      this.unLockCamera()
+    } catch (err) {
+      this.unLockCamera()
+      console.warn(err)
+      throw err
+    }
+  }
+
   @action
   async muteLocalCamera() {
     if (this.cameraLock) {
