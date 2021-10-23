@@ -206,6 +206,7 @@ export const Nav = observer((props: any) => {
           </div>
           <span className="menu-split" />
           </>
+
           <div className={platform === 'web' ? "btn-group" : 'electron-btn-group'}>
             {platform === 'web' ?
             <>
@@ -214,13 +215,25 @@ export const Nav = observer((props: any) => {
                 {/* <CustomIcon className="icon-setting" onClick={(evt: any) => {
                    uiStore.showSetting()
                 }}/> */}
-                 <CustomIcon className="icon-setting" /> 
+                 <CustomIcon icon  className="icon-setting" /> 
 
               </span>
             </Tooltip>
             </> : null
           }
             <UploadButton isBreakout={isBreakout} />
+
+            <Tooltip title={t("icon.exit-room")} placement="bottom">
+              <span>
+                <CustomIcon className="icon-exit" onClick={(evt: any) => {
+                  uiStore.showDialog({
+                    type: 'exitRoom',
+                    message: t('icon.exit-room')
+                  })
+                }} />
+              </span>
+            </Tooltip>
+
             <Tooltip title={t("icon.exit-room")} placement="bottom">
               <span>
                 <CustomIcon className="icon-exit" onClick={(evt: any) => {
@@ -232,6 +245,7 @@ export const Nav = observer((props: any) => {
               </span>
             </Tooltip>
           </div>
+          
           {uiStore.isElectron &&
             <div className="menu-group">
               <CustomIcon className="icon-minimum" icon onClick={() => {
