@@ -1,6 +1,6 @@
 import React from 'react';
-import {CustomButton} from '../custom-button';
-import {Dialog, DialogContent, DialogContentText} from '@material-ui/core';
+import { CustomButton } from '../custom-button';
+import { Dialog, DialogContent, DialogContentText } from '@material-ui/core';
 
 import './dialog.scss';
 import { t } from '@/i18n';
@@ -27,12 +27,12 @@ interface RoomProps {
 }
 
 function RoomDialog(
-{
-  onConfirm,
-  onClose,
-  dialogId,
-  dialogMessage
-}: RoomProps) {
+  {
+    onConfirm,
+    onClose,
+    dialogId,
+    dialogMessage
+  }: RoomProps) {
 
   const uiStore = useUIStore()
 
@@ -96,7 +96,6 @@ const DialogContainer = observer(() => {
     }
     else if (type === 'apply') {
       // p2p message accept coVideo
-      // 老师同意学生连麦申请
       await roomStore.teacherAcceptApply()
     }
     else if (type === 'uploadLog') {
@@ -108,17 +107,17 @@ const DialogContainer = observer(() => {
 
   return <>
     {
-    uiStore.dialogs.map(dialog => (
-      <RoomDialog
-        key={dialog.id as number}
-        dialogId={dialog.id as number}
-        dialogMessage={dialog.dialog as DialogMessage}
-        onClose={onClose}
-        onConfirm={onConfirm}
-      />
-    ))
+      uiStore.dialogs.map(dialog => (
+        <RoomDialog
+          key={dialog.id as number}
+          dialogId={dialog.id as number}
+          dialogMessage={dialog.dialog as DialogMessage}
+          onClose={onClose}
+          onConfirm={onConfirm}
+        />
+      ))
     }
-    </>
+  </>
 })
 
 

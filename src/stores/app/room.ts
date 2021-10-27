@@ -1517,7 +1517,7 @@ export class RoomStore extends SimpleInterval {
         })
         // console.log("closeStream ", this.userUuid)
         if (this.userUuid === userUuid) {
-          // console.log("准备结束摄像头")
+        
           this._cameraEduStream = undefined
           await this.mediaService.unpublish()
           await this.mediaService.closeCamera()
@@ -1546,7 +1546,7 @@ export class RoomStore extends SimpleInterval {
       const targetStream = this.streamList.find((it: EduStream) => it.userInfo.userUuid === userUuid)
       await this.roomManager?.userService.remoteStopStudentMicrophone(targetStream as EduStream)
     }
-  }
+   }
 
   async unmuteAudio(userUuid: string, isLocal: boolean) {
     // console.log("unmuteAudio", userUuid, isLocal)

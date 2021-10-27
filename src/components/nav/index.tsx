@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { CustomIcon } from '@/components/icon';
 import './nav.scss';
 import { CustomButton } from '@/components/custom-button';
@@ -12,6 +12,9 @@ import { observer } from 'mobx-react';
 import { useLocation } from 'react-router-dom';
 import { networkQualities as networkQualityIcon } from '@/stores/app/room'
 import { EduManager } from '@/sdk/education/manager';
+
+import { Dialog, DialogContent, DialogContentText, DialogActions, DialogTitle } from '@material-ui/core';
+
 
 interface NavProps {
   delay: string
@@ -64,7 +67,7 @@ const StartClassButton = (props: any) => {
 }
 
 const BreakoutUploadButton = observer(() => {
-  
+
   const uiStore = useUIStore()
   const breakoutRoomStore = useBreakoutRoomStore()
 
@@ -125,7 +128,7 @@ const BasicUploadButton = observer(() => {
       <span>
         <CustomIcon className={lock ? "icon-loading" : "icon-upload"}
           onClick={async (evt: any) => {
-          await handleUpload()
+            await handleUpload()
           }}>
         </CustomIcon>
       </span>
@@ -139,8 +142,13 @@ const UploadButton = (props: any) => {
   )
 }
 
+
+
 export const Nav = observer((props: any) => {
   const uiStore = useUIStore();
+  const [openInvite, setOpenInvite] = useState(false);
+  const clipBoard = useRef(null);
+
 
   const appStore = useAppStore();
 
@@ -150,6 +158,8 @@ export const Nav = observer((props: any) => {
 
   const role = appStore.roomInfo.userRole
   const roomName = appStore.roomInfo.roomName
+  const roomType = appStore.roomInfo.roomType
+
 
   const delay = mediaStore.delay
   const time = appStore.time
@@ -159,15 +169,75 @@ export const Nav = observer((props: any) => {
   const isCourses = location.pathname.match(/courses/)
 
   const isBreakout = location.pathname.match(/breakout/)
+  const handleClickOpenInvite = () => {
+    setOpenInvite(true);
+  };
+
+  const handleCloseInvite = () => {
+    setOpenInvite(false);
+  };
+
+  // roomName: "R0oom"
+  // roomType: 1
+  // userName: "NaaTo"
+  // userRole: "teacher"
+  // userUuid: "NaaToteacher"
+
+  // let joinData: any = {
+  //   roomName: "R0oom",
+  //   roomType: 1,
+  //   userName: "NaaTo",
+  //   userRole: "teacher",
+  //   userUuid: "NaaToteacher",
+  // }
+
+  let pathUrl = window.location.origin;
+  let joinUrl = `${pathUrl}/#/join?roomName=${roomName}&userRole=student&roomType=${roomType}`
+//  JSON.stringify(joinData)
+//   let joinUrl = `${pathUrl}/#/join/?roomName=${joinData}`
+
+  // console.log(appStore.roomInfo , 'this is appStore')
+  let myInput: any = null;
+  const copyToClipboard = () => {
+    myInput.select();
+    navigator.clipboard.writeText(`${myInput.value}`)
+    handleCloseInvite()
+  };
 
   return (
     <>
       <div className={`nav-container ${isElectron ? 'draggable' : ''}`}>
+
+        <Dialog
+          open={openInvite}
+          onClose={setOpenInvite}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description">
+          <DialogTitle id="alert-dialog-title">{"Copy Invitation"}</DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              <input className='form-input' disabled type="text" name="" id=""
+                readOnly
+                value={joinUrl}
+                ref={(ref) => (myInput = ref)}
+              />
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <CustomButton name='Copy' onClick={copyToClipboard} color="primary" size="medium" autoFocus />
+          </DialogActions>
+        </Dialog>
+
+
         <div className="class-title">
           <span className="room-name">{roomName}</span>
-          {role === 'teacher' ?
-            <StartClassButton isBreakout={isBreakout} /> : null}
+          {role === 'teacher' ? <StartClassButton isBreakout={isBreakout} /> : null}
+          <div className='invite'>
+            <button onClick={handleClickOpenInvite}>Invite</button>
+          </div>
         </div>
+
+
         <div className="network-state">
           <div>
             {
@@ -198,29 +268,30 @@ export const Nav = observer((props: any) => {
                 </div> : null}
           </div>
         </div>
+
         <div className="menu">
           <>
-          <div className="timer">
-            <CustomIcon className="icon-time" disable />
-            <span className="time">{moment.utc(time).format('HH:mm:ss')}</span>
-          </div>
-          <span className="menu-split" />
+            <div className="timer">
+              <CustomIcon className="icon-time" disable />
+              <span className="time">{moment.utc(time).format('HH:mm:ss')}</span>
+            </div>
+            <span className="menu-split" />
           </>
 
           <div className={platform === 'web' ? "btn-group" : 'electron-btn-group'}>
             {platform === 'web' ?
-            <>
-            <Tooltip title={t("icon.setting")} placement="bottom">
-              <span>
-                {/* <CustomIcon className="icon-setting" onClick={(evt: any) => {
+              <>
+                <Tooltip title={t("icon.setting")} placement="bottom">
+                  <span>
+                    {/* <CustomIcon className="icon-setting" onClick={(evt: any) => {
                    uiStore.showSetting()
                 }}/> */}
-                 <CustomIcon icon  className="icon-setting" /> 
+                    <CustomIcon icon className="icon-setting" />
 
-              </span>
-            </Tooltip>
-            </> : null
-          }
+                  </span>
+                </Tooltip>
+              </> : null
+            }
             <UploadButton isBreakout={isBreakout} />
 
             <Tooltip title={t("icon.exit-room")} placement="bottom">
@@ -233,19 +304,8 @@ export const Nav = observer((props: any) => {
                 }} />
               </span>
             </Tooltip>
-
-            <Tooltip title={t("icon.exit-room")} placement="bottom">
-              <span>
-                <CustomIcon className="icon-exit" onClick={(evt: any) => {
-                  uiStore.showDialog({
-                    type: 'exitRoom',
-                    message: t('icon.exit-room')
-                  })
-                }} />
-              </span>
-            </Tooltip>
           </div>
-          
+
           {uiStore.isElectron &&
             <div className="menu-group">
               <CustomIcon className="icon-minimum" icon onClick={() => {
@@ -259,6 +319,7 @@ export const Nav = observer((props: any) => {
               }} />
             </div>}
         </div>
+
       </div>
     </>
   )

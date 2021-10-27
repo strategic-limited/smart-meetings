@@ -105,7 +105,7 @@ function HomePage() {
       ...session,
       roomType: roomTypes[session.roomType].value
     })
-    
+
     const path = roomTypes[session.roomType].path
 
     if (session.role === 'assistant') {
@@ -119,98 +119,95 @@ function HomePage() {
   return (
     <div className=''>
       <section className="">
-         <div className="container">
-           <div className="flex-container ">
+        <div className="container">
+          <div className="flex-container ">
 
             <div className="sign-in-page  ">
               <div className='sign-in-logo'>
                 <img alt='' className="loginlogo" src={logo} />
               </div>
-             
 
-                <h1 className="tagLine">Create your meeting Room</h1>
 
-                <div className="form-group">
+              <h1 className="tagLine">Create your meeting Room</h1>
 
-                  <div className=''>
-                    <FormControl className={classes.formControl}>
-                      <label className='form-label ' htmlFor=""> Room Name</label>
-                      <FormInput
-                        alphabetical={true}
+              <div className="form-group">
 
-                        value={session.roomName}
-                        onChange={
-                          (val: string) => {
-                            setSessionInfo({
-                              ...session,
-                              roomName: val
-                            });
-                          }
+                <div className=''>
+                  <FormControl className={classes.formControl}>
+                    <label className='form-label ' htmlFor=""> Room Name</label>
+                    <FormInput
+                      alphabetical={true}
+
+                      value={session.roomName}
+                      onChange={
+                        (val: string) => {
+                          setSessionInfo({
+                            ...session,
+                            roomName: val
+                          });
                         }
-                        requiredText={required.roomName}
-                      />
-                    </FormControl>
-                  </div>
+                      }
+                      requiredText={required.roomName}
+                    />
+                  </FormControl>
+                </div>
 
-                  <div className='form-div'>
-                    <FormControl className={classes.formControl}>
-                      <label className='form-label ' htmlFor="">Your Name</label>
-                      <FormInput
-                        alphabetical={true}
-                        Label={t('home.nickname')}
-                        value={session.userName}
-                        onChange={(val: string) => {
-                          setSessionInfo({
-                            ...session,
-                            userName: val
-                          });
-                        }}
-                        requiredText={required.userName}
-                      />
-                    </FormControl>
-                  </div>
-
-                  <div className='form-div'>
-                    <FormControl className={classes.formControl}>
-                      <label className='form-label ' htmlFor=""> Room Type</label>
-                      <FormSelect
-                        Label={t('home.room_type')}
-                        value={session.roomType}
-                        onChange={(evt: any) => {
-                          setSessionInfo({
-                            ...session,
-                            roomType: evt.target.value
-                          });
-                        }}
-                        items={roomTypes
-                          .map((it: any) => ({
-                            value: it.value,
-                            text: t(`${it.text}`),
-                            path: it.path
-                          }))}
-                      />
-                    </FormControl>
-                  </div>
-
-
-                  <div className='form-div'>
-                    <FormControl className={classes.formControl}>
-                      <RoleRadio value={session.role} type={session.roomType} onChange={(evt: any) => {
+                <div className='form-div'>
+                  <FormControl className={classes.formControl}>
+                    <label className='form-label ' htmlFor="">Your Name</label>
+                    <FormInput
+                      alphabetical={true}
+                      Label={t('home.nickname')}
+                      value={session.userName}
+                      onChange={(val: string) => {
                         setSessionInfo({
                           ...session,
-                          role: evt.target.value
+                          userName: val
                         });
-                      }} requiredText={required.role}></RoleRadio>
-                    </FormControl>
-                  </div>
+                      }}
+                      requiredText={required.userName}
+                    />
+                  </FormControl>
+                </div>
 
-                  <div className='form-div'>
-                    <CustomButton className="btn-primary" name={t('home.room_join')} onClick={handleSubmit} />
-                  </div>
+                <div className='form-div'>
+                  <FormControl className={classes.formControl}>
+                    <label className='form-label ' htmlFor=""> Room Type</label>
+                    <FormSelect
+                      Label={t('home.room_type')}
+                      value={session.roomType}
+                      onChange={(evt: any) => {
+                        setSessionInfo({
+                          ...session,
+                          roomType: evt.target.value
+                        });
+                      }}
+                      items={roomTypes
+                        .map((it: any) => ({
+                          value: it.value,
+                          text: t(`${it.text}`),
+                          path: it.path
+                        }))}
+                    />
+                  </FormControl>
                 </div>
 
 
-            
+                <div className='form-div'>
+                  <FormControl className={classes.formControl}>
+                    <RoleRadio value={session.role} type={session.roomType} onChange={(evt: any) => {
+                      setSessionInfo({
+                        ...session,
+                        role: evt.target.value
+                      });
+                    }} requiredText={required.role}></RoleRadio>
+                  </FormControl>
+                </div>
+
+                <div className='form-div'>
+                  <CustomButton className="btn-primary" name={t('home.room_join')} onClick={handleSubmit} />
+                </div>
+              </div>
 
               <img alt='' src={footerIcon} className="footericon" />
             </div>
