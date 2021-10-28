@@ -13,20 +13,20 @@ const {
   addWebpackAlias,
   // addWebpackTarget,
 } = require('customize-cra')
-const {DefinePlugin} = require('webpack')
+const { DefinePlugin } = require('webpack')
 const addWebpackTarget = target => config => {
   config.target = target
   return config
 }
 const path = require('path')
 const HardSourceWebpackPlugin = require('hard-source-webpack-plugin')
-const SimpleProgressWebpackPlugin = require( 'simple-progress-webpack-plugin' )
+const SimpleProgressWebpackPlugin = require('simple-progress-webpack-plugin')
 
 const ProgressBarPlugin = require('progress-bar-webpack-plugin')
 
 const isElectron = process.env.REACT_APP_RUNTIME_PLATFORM === 'electron'
 
-const {devDependencies} = require('./package.json');
+const { devDependencies } = require('./package.json');
 
 // TODO: You can customize your env
 
@@ -46,7 +46,7 @@ const webWorkerConfig = () => config => {
 
 const sourceMap = () => config => {
   // TODO: Please use 'source-map' in production environment
-  
+
   config.devtool = 'source-map'
   //config.devtool = isProd ? 'source-map' : 'cheap-module-eval-source-map'
   return config;
@@ -83,7 +83,7 @@ const useOptimizeBabelConfig = () => config => {
 }
 
 module.exports = override(
-    //useBabelRc(),
+  //useBabelRc(),
   isElectron && addWebpackTarget('electron-renderer'),
   disableEsLint(),
   webWorkerConfig(),
