@@ -401,6 +401,23 @@ export class RoomStore extends SimpleInterval {
     }
   }
 
+
+  @action
+  async applyEffect(effect?: any) {
+    try {
+      const deviceId = this._cameraId
+      await this.mediaService.applyEffect({ deviceId , effect})
+      this._cameraRenderer = this.mediaService.cameraRenderer
+      this.cameraLabel = this.mediaService.getCameraLabel()
+      this._cameraId = this.cameraId
+      this.unLockCamera()
+    } catch (err) {
+      this.unLockCamera()
+      console.warn(err)
+      throw err
+    }
+  }
+
   @action
   async muteLocalCamera() {
     if (this.cameraLock) {
@@ -1500,7 +1517,7 @@ export class RoomStore extends SimpleInterval {
         })
         // console.log("closeStream ", this.userUuid)
         if (this.userUuid === userUuid) {
-          // console.log("准备结束摄像头")
+        
           this._cameraEduStream = undefined
           await this.mediaService.unpublish()
           await this.mediaService.closeCamera()
@@ -1529,7 +1546,7 @@ export class RoomStore extends SimpleInterval {
       const targetStream = this.streamList.find((it: EduStream) => it.userInfo.userUuid === userUuid)
       await this.roomManager?.userService.remoteStopStudentMicrophone(targetStream as EduStream)
     }
-  }
+   }
 
   async unmuteAudio(userUuid: string, isLocal: boolean) {
     // console.log("unmuteAudio", userUuid, isLocal)

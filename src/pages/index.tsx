@@ -16,6 +16,7 @@ import { ReplayPage } from './replay';
 import {Provider} from 'mobx-react';
 import { AppStore } from '@/stores/app';
 import {AssistantCoursesPage} from './breakout-class/assistant-courses-page';
+import {JoinRoomController} from './classroom/share-join'
 
 const defaultStore = new AppStore()
 //@ts-ignore
@@ -33,11 +34,13 @@ export default function () {
           <Route path="/setting">
             <DeviceDetectPage />
           </Route>
+
           <Route exact path="/classroom/one-to-one">
             <RoomPage >
               <OneToOne />
             </RoomPage>
           </Route>
+          
           <Route exact path="/classroom/small-class">
             <RoomPage>
               <SmallClass />
@@ -62,6 +65,10 @@ export default function () {
           </Route>
           <Route exact path="/">
             <Home />
+          </Route>
+
+          <Route exact path="/join/">
+            <JoinRoomController />
           </Route>
           
         </HashRouter>

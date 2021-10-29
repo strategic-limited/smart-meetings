@@ -181,7 +181,7 @@ const en = {
     'network': 'Network: ',
     'cpu': 'CPU: ',
     'class_end': 'Class end',
-    'class_start': 'Class start',
+    'class_start': 'Start Meeting',
     'back': 'Back',
   },
   'home': {

@@ -34,7 +34,7 @@
     line-height: 15px;
     margin-left: 8px;
     text-transform: none;
-    width: 103px;
+    width: 110px;
     height: 28px;
     border-radius: 14px;
     background: #44A2FC;
@@ -42,6 +42,7 @@
     .MuiButton-label {
       font-size: 14px;
       line-height: 15px;
+      white-space: nowrap;
     }
     &:hover {
       background: #82C2FF;
@@ -51,7 +52,7 @@
     line-height: 15px;
     margin-left: 8px;
     text-transform: none;
-    width: 103px;
+    width: 110px;
     height: 28px;
     background: #FFFFFF;
     color: #FF2D55;
@@ -60,6 +61,7 @@
     .MuiButton-label {
       font-size: 14px;
       line-height: 15px;
+      white-space: nowrap;
     }
     &:hover {
       border: 1px solid #FF5E7D;
@@ -73,15 +75,26 @@
     color: #666;
     position: absolute;
     display: flex;
+    align-items: center;
     justify-content: center;
     top: .5rem;
     left: 50%;
-    
     transform: translateX(-50%);
     width: 500px;
     .room-name {
       height: 30px;
       line-height: 30px;
+    }
+    .invite {
+      margin-left: 8px;
+    }
+
+    .invite button {
+      border: none;
+      cursor: pointer;
+      height: 30px;
+      line-height: 30px;
+      
     }
   }
   
@@ -108,6 +121,7 @@
     }
   }
 }
+
 
 .timer {
   display: flex;
@@ -152,4 +166,13 @@
     line-height: 30px;
     transform: translateY(8px);
   }
+}
+
+.form-input {
+  border : '1px solid #fff';
+  border-radius: '2px';
+  background: 'white';
+  width: 300px;
+  padding: 5px;
+  height: 20px;
 }

@@ -30,8 +30,6 @@ export const VideoMarquee = observer(() => {
 
   const { teacherStream, studentStreams } = useRoomStore()
 
-  const [userEffect , setUserEffect] = useState(null)
-
   const marqueeEl = useRef(null);
 
   const scrollLeft = (current: any, offset: number) => {

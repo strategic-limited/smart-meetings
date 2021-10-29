@@ -417,6 +417,34 @@ export class MediaService extends EventEmitter implements IMediaService {
     }
   }
 
+
+  async applyEffect(option?: CameraOption): Promise<any> {
+    if (this.isWeb) {
+      await this.sdkWrapper.applyEffect(option)
+      if (!this.web.cameraTrack) return
+      if (!this.cameraRenderer) {
+        this.cameraRenderer = new LocalUserRenderer({
+          context: this,
+          uid: 0,
+          sourceType: 'default',
+          videoTrack: this.web.cameraTrack
+        })
+      } else {
+        this.cameraRenderer.videoTrack = this.web.cameraTrack
+      }
+    }
+    if (this.isElectron) {
+      await this.sdkWrapper.applyEffect()
+      if (!this.cameraRenderer) {
+        this.cameraRenderer = new LocalUserRenderer({
+          context: this,
+          uid: 0,
+          sourceType: 'default',
+        })
+      }
+    }
+  }
+
   async changeCamera(deviceId: string): Promise<any> {
     if (this.isWeb) {
       await this.sdkWrapper.changeCamera(deviceId)

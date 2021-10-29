@@ -16,7 +16,7 @@ const useStyles = makeStyles ((theme: Theme) => ({
     background: 'white',
     marginTop: '5px',
     marginBottom: '0px',
-    padding: '1px',
+    padding: '2px',
     '&:after': {
       border: '1px solid #fff'
     }
@@ -38,37 +38,33 @@ export const FormInput = (props: any) => {
 
   const imeLock = useRef<boolean>(false)
   
-  const onCompositionStart = (evt: any) => {
-    imeLock.current = true
-  }
+  // const onCompositionStart = (evt: any) => {
+  //   imeLock.current = true
+  // }
 
   const updateValue = (value: string) => {
     props.onChange(value)
   }
 
-  const onCompositionEnd = (evt: any) => {
-    imeLock.current = false
-    updateValue(props.value.replace(/[^0-9a-zA-Z$]/g, '').slice(0, LIMIT_LENGTH))
-  }
+  // const onCompositionEnd = (evt: any) => {
+  //   imeLock.current = false
+  //   updateValue(props.value.replace(/[^0-9a-zA-Z$]/g, '').slice(0, LIMIT_LENGTH))
+  // }
 
   const onChange = (evt: any) => {
-    const val = evt.target.value.replace(/[^0-9a-zA-Z$]/g, '').slice(0, LIMIT_LENGTH)
-    if (imeLock.current) {
-    } else {
-      evt.target.value = val
+    // const val = evt.target.value.replace(/[^0-9a-zA-Z$]/g, '').slice(0, LIMIT_LENGTH)
+    // if (imeLock.current) {
+    // } else {
+    //   evt.target.value = val
       updateValue(evt.target.value)
-    }
-    imeLock.current = false
+    // }
+    // imeLock.current = false
   }
   return (
     <>
       {/* <InputLabel>{props.Label}</InputLabel> */}
       <Input className={classes.formInput} value={props.value}
-        onCompositionStart={onCompositionStart}
-        onCompositionEnd={onCompositionEnd}
-        inputProps={{
-          maxLength: 20
-        }}
+        
         onChange={onChange}>
       </Input>
       {props.requiredText ? <Typography className={classes.required}>{props.requiredText}</Typography> : null}
