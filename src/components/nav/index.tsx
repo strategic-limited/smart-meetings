@@ -192,7 +192,7 @@ export const Nav = observer((props: any) => {
   // }
 
   let pathUrl = window.location.origin;
-  let joinUrl = `${pathUrl}/#/join?roomName=${roomName}&userRole=student&roomType=${roomType}`
+  let joinUrl = `${pathUrl}/testing/build/#/join?roomName=${roomName}&userRole=student&roomType=${roomType}`
 //  JSON.stringify(joinData)
 //   let joinUrl = `${pathUrl}/#/join/?roomName=${joinData}`
 
